@@ -1,0 +1,325 @@
+  2009/04/03 - ASE 15 related fixes/upgrades.  Fixed bad table partition
+               counts for ASE 15.  Added support for "unsigned" int data
+               types in ASE 15.  Probably lots of other new ASE 15 is not
+               supported.  Ben Slade.
+Release 2.4.2
+  03/02/08 - David Owen (dowen@midsomer.org)  Thanks to Alexey Egorov,
+             Rene van Leeuwen, Ilya Zvyagin, Dmitry Chuev, Alan Sheu and
+             Jim Lewis for bug reports, fixes and suggestions.
+
+      o Added the following new options:
+          --bcp-arg            Arguments specified here are used for both
+                               bcp 'in' and 'out'.
+          --bcp-in-arg         These args are passed to just bcp 'in'.
+          --bcp-out-arg        These args are passed to just bcp 'out' (duh!).
+
+        Normally, I would not add new functionality to a 'point' release, but I
+        think that this is more by way of adding to a feature that was there.  
+        These options allow for the specification of bcp arguments for field 
+	and row separators etc.  Should have been there all along I guess.
+      o Print out devices in the correct order of creation.
+
+      Bug Fixes.
+
+      00023 - Not putting out the "END" when -k but *not* -V selected for
+              certain objects (those stored in syscomments).
+      00024 - Getting the system directory wrong when extracting the server
+              information in -O2 mode.
+      00025 - 'whoami' not working on Solaris.
+      00026 - Not extract segment information correctly for indexes built on
+              segments with segment number > 3.
+      00027 - Corrected a small fault in the way that groups are extracted.
+      00028 - '--noreferences' caused script to fail extracting just indexes.
+      00029 - The defaults hash was not being cleared out between databases, so
+              it just kept building.
+
+Release 2.4.1
+  03/01/19 - David Owen (dowen@midsomer.org)  Thanks to Doug Roderick and
+             Karl Glimm for bug reports.
+
+      o Changed the name of the directory for the system stuff when using
+        -a or -A from 'system' to 'system-DDL'.
+      o Added the ability to specify a couple of variables in the -o option so
+        that you can more flexibly choose the output filenames.
+
+      Bug Fixes.
+
+      00021 - Don't create the 'system DDL' directory unless specifying '-m'.
+      00022 - Remove the trailing 'ESD...' from the version string if it exists.
+
+Release 2.4.0
+  02/12/29 - David Owen (dowen@midsomer.org)  Thanks to Tobias Sager, Daniel Cron,
+             Malcolm Wotton, Dmitry Chuev, Mark Anderson and Ateeq Ahmad for the
+             bug reports and fixes.
+
+      o Added the following new options:
+          --quiet              Should be obvious!  Overrides all -v's.
+          --for-sql-server     Helps in the migration to M$ SQL Server.
+          --[no]references     Toggles printing of foreign key references.
+          --target-db          Specify database for 'use <database>' statement.
+          --exclude-db or -X   Excludes databases from the list to be extracted.
+      o Improved the layout of the extracted code to try and ensure no
+        'extra' lines are added to objects.  (Some extraction tools add
+        additional, unwanted, blanks lines to the extracted code making
+        comparison difficult.)
+      o Changed the way tables are extracted in 'for-compare' mode to make
+        comparison more consistent.
+      o New mailing list.  Send email to dbschema-l-subscribe@midsomer.org.
+
+
+      Bug Fixes.
+
+      00012 - Replace non-ANSI strings with correct ANSI versions.
+      00013 - Not writing -J and -z options to bcp commands.
+      00014 - Not writing out the existance checks for some objects when -k
+              selected.
+      00015 - Falsely matching t_sysname as sysname.
+      00016 - Typos in usage.
+      00017 - Fails to handle case when the extraction user does not belong to a
+              database he is trying to extract.
+      00018 - Regular users performing extracts generated errors when extracting
+              groups.
+      00019 - Incorrectly adding 'sp_logdevice' when generating --for-load.
+      00020 - Not adding 'sp_logdevice' for first all log device if it was not the
+              2nd device.
+
+Release 2.3.1
+  02/04/10 - David Owen (dowen@midsomer.org) Thanks to Erik Bertelsen for
+             the bug report and the fix.
+
+      Bug Fixes.
+
+      00011 - Not separating views into their correct tables if -O2
+              selected.
+
+Release 2.3.0
+  02/04/08 - David Owen (dowen@midsomer.org) (Wow, doesn't a year fly!)
+             with thanks to Daniel Cron, Jonathan Allen, Andrey V. Kolchanov,
+             Chito Domingo, Dimitry Ioffe, Steve Baumgarten, David Eyer,
+             Mark Atkins
+      o Added following new options:
+          --[no]use-database   Make the 'use <db>' headers optional.
+          --[no]comments       Make comments in output optional
+          --[no]setuser        Make 'setuser' statements optional
+          --[no]permissions    Make permissions parts optional.
+          --packet-size        Set the client packet size.
+          --force-defaults     Used to force the extraction of default
+                               items that are optional, ie 'ASC' in index
+                               creation or "dsync='on'" in the disk init.
+          -J <charset>         Specify server charset.
+          -z <locale>          Specify locale for client.
+          -c <cmdend>          Use <cmdend> in place of 'go'
+      o Made verbosity have levels.  Currently have only a couple of levels.
+      o Added option to replace 'go' string.
+      o Changed the way that views are extracted so that they can either be
+        extracted in dependent order (as per tables etc) or sorted (so that
+        you can do compares between systems.)
+      o The drops for users, logins, types, defaults are not included
+        (pretty much anything created using a stored proc).  I have decided
+        that this is not really a fault.  I looked at doing it, but it
+        turns out to be a right royal pain.  If a user owns a table, you
+        cannot drop him or her.  Defaults must be unbound before being
+        dropped, etc etc etc.  If anyone can think of a good way of
+        achieving this, if, indeed, it would be useful, I would be happy to
+        have a go.  The best I have come up with is putting them all in a
+        separate file to be dropped after the rest of the items.
+      o Database creation statements are now stored in their respective
+        subdirectory when using '-a' or '-A'.
+
+  02/04/07 - Mark Mertel (mmertel@olympus.net) Added procedure grouping stuff.
+
+      Bug Fixes.
+
+      00004 - Incorrectly overwriting the database build script when using
+              the '-a' and '-A' flags.
+      00005 - As a result of the code to extract indexes still being in two
+              places, the extraction of indexes on DOL tables was not
+              getting the CLUSTERED attribute correct.
+      00006 - Not extracting all columns for indexes containing more than
+              16 columns (throw back to days when this was not permitted
+              within ASE.)
+      00007 - Overwriting the database create statements when -a or -A is
+              selected.
+      00008 - Not sorting the table order properly when -O1 is selected.
+      00009 - Not counting the permissions extracted correctly.
+      00010 - Error opening file handle if extracting a single object with
+              -O2.
+
+Release 2.2.4
+
+  02/04/16 - David Owen (dowen@midsomer.org)
+      o Added '-F' flag.
+      o Added 'ASC/DESC' for ASE 12 indexes.
+      o Reorg'd the index extraction code so that there aren't two lots of
+        the same code doing the same job.
+      o Added a check to ensure that the database being extracted actually
+        exists.
+
+      Bug Fixes.
+
+      00001 - Incorrectly extracting DOL tables when the '-f' flag was
+              selected.
+
+Release 2.2.3
+
+  01/11/24 - David Owen (dowen@midsomer.org)
+      o Switched to using long option names.  All old option names will
+        continue to work (let me know if they don't!) as they did, but
+        some now have more meaningful names.  Well a couple so far.
+      o Added following switches:
+          --for-compare   Makes extraction of views and procs alphabetic
+                          rather than pseudo dependent.
+          --for-load      Adds 'for load' statements to the build db.
+          --dsync={on|off|true|false}
+                          Adds dsync lines to the disk init commands.
+          --asa           Does nothing, yet!
+          --stdin         Allows the user to pipe the password in rather
+                          than have it on the command line.
+          --[no]cis       Toggles whether CIS tables are extracted using
+                          'EXISTING' clause.
+      o Obviously, CIS tables are now extracted correctly!
+      o Added some pod documentation, mainly for CPAN's benefit.
+      o Added support for the (defunct) datatypes 'intn' etc.
+      o Added a call to 'sp_logdevice' for databases that were built
+        in the normal data + log manner.  Could be erroneous, but
+        unlikely.
+      o -D can be used multiple times to supply a list of databases.
+
+  01/10/01 - Malcolm Wotton (wotton@globalnet.co.uk)
+      Fixed a bug with the selection of circular references in tables.  If
+      tableA and tableAB where linked with FK constraint, possible to fail
+      to drop tableA because it is seen as part of string 'tableAB'.
+
+      Bug Fixes.
+
+      00002 - sybsyntax and sybsystemdb being extracted with '-a' flag.
+      00003 - Tables whose name is an exact substring of another were
+              wrongly being omitted from the extraction process.
+
+Release 2.2.2
+
+      o All of the 2.2.2 changes were lost in some calamity.  I was just
+        looking at the code and it was not there!  Too late now!  The
+        changes that were here have been rolled up into 2.2.4.
+
+Release 2.2.1
+
+  01/04/01 - John Hennessy (john.hennessy@dcs.qld.gov.au)
+      Fixed the error with DOL tables not correctly specifying the clustered
+      index.
+
+Release 2.2.0
+
+  01/03/01 - David Owen
+      Thanks go to Coston Cheatham (ccheatha@jwac.osis.gov) for a lot of
+      the changes and fixes that went into this release
+      A number of cleanups, reordering of index creation, allowing
+      separation of index and trigger creation and forced separation of the
+      database creation statements.  Allowing for the separation of the
+      triggers and the indexes allowes for the generation of better scripts
+      for migration purposes, where both could get in the way of loading
+      data.
+      Add some stats so that people can see just what is being extracted,
+      plus it helps me tremendously with testing.
+      Fixed an error in the extraction of tables that contained recursive
+      constraints.
+      Tried to ensure that independent objects are extracted before dependent
+      ones, although I do not seem to have hit 100%.
+      Made the table definition extraction look a lot prettier (lined up
+      columns etc).
+  01/01/30 - Geoffrey Rommel (GRommel@Webley.COM)
+      Added the '-T' flag.
+  01/01/09 - David Owen
+      Removed the dependency on ctime.pl.
+
+Release 2.1.4
+
+  01/01/05 - David Owen (on behalf of Andreas Mahling)
+      Modified to extract the tables, indexes and foreign keys separately
+      to improve the speed of rebuilding a foreign database.  Also added
+      a "-b" flag to build the necessary bcp scripts to extract the data
+      and subsequently re-import it.
+  01/01/04 - David Owen
+      Applied some bug fixes sent in by Yevgeniy Tishkin.
+  00/10/20 - (tboss) Todd Boss
+      Modified to correctly handle non-dbo owned objects
+  00/08/27 - Christopher Singer
+      Improved the generation of the grants/revokes to only issue a
+      single grant/revoke per ID.
+  00/05/08 - Al McNamee, John Erjavec V
+      Added fix to insert datarow locking into DDL of datarow locked
+      tables.
+  00/04/23 - David Owen
+      Applied fix as supplied by Andrew D. Farmer to better extract the
+      table permissions (especially column level permissions).
+  00/03/24 - David Owen
+      Finished off the generation of the "drop" statements.  (Cannot
+      work out a very neat way to do the logins and users etc.  I feel
+      a separate file is the only "nice" way.  Little point in simply
+      adding the drop just before the create, a la tables, since it is
+      of little use.  Will continue to think on it.)
+      Prepended "exec " to all "sp" calls, so that they can be used in
+      multiple batches without fear that there may have been lots of
+      them.
+      Do not port the 'probe' login.
+      Fixed bug that was setting the mode incorrectly for the
+      subdirectories.
+      Fixed the order that objects were created.  Groups and users need
+      to be created before objects so that permissions can be assigned
+      correctly.
+      Removed the "ON 'default'" that was being generated.  I don't
+      believe that it is necessary, if someone knows something that I
+      don't, let me know.
+      Added segment extractions for each database.
+      Added "ON 'segment'" for tables.
+      Tried to make it fit within 80 cols for those with narrow screens
+      (Anthony!!).
+      Thanks to Rolf Jordi for supplying fixes to a number of bugs and
+      some excellent suggestions for improvement.  Look out for version
+      3.0!
+      Thanks to Eric Maes and Robert Banniza for feedback and help in
+      ironing out some bugs.
+  99/12/09 - David Owen
+      Made command switches consistent with standard Sybase set.
+      Added options to allow the output to be split into multiple
+      files.  (-O)
+      Changed the password prompting to handle w 9x.
+      Only produce the log file if there is an error or the "-v" option
+      is chosen.
+      Moved all of the work for each type into its own sub.
+      Added code to extract the database build DDL.
+      Some of the DDL code was taken from
+      dpartridge's changes that became dbschema.disk.pl.  That file
+      should be no longer be necessary as all of its functionality (and
+      more) can be found here.
+  99/12/08 - Robert Banniza
+      Changes made to reflect whether CLUSTERED or NONCLUSTERED
+      indexes. Also reflects information for default segments and other
+      segments besides logsegments.
+  99/11/08 - Alain Trembleau
+      Fixed foreign key bug in printKeys().
+  97/03/12 - Michael Peppler
+      Added -i switch to set an alternate interfaces file.
+  97/03/11 - David Whitmarsh
+      Bug handling user defined types used as identity columns.
+      addtype now has scale, prec
+      Removed spurious addtypes for nchar etc. null/not null/identity
+      on types
+  97/02/17 - Michael Peppler
+      Fixed small ',' problem in printKeys()
+  96/11/11 - David Whitmarsh
+      Use Sybase::DBlib System 10 declarative RI constraints
+      Eliminate key truncation problems
+      Optional password command line
+      Debugged and strictified
+      Some index/key options
+  95/10/13 - Ashu Joglekar
+      System 10 w/o RI
+  94/09/15 - mpeppler
+      Minor changes for use with Sybperl2 alpha1
+  94/02/22 - mpeppler
+      Merge bpapp's changes with itf version'
+  93/11/18 - bpapp
+      Get protection information for views and stored procedures.
+  93/11/18 - bpapp
+      Put in interactive SA password prompt
