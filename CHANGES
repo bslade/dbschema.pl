@@ -1,7 +1,7 @@
   2009/04/03 - ASE 15 related fixes/upgrades.  Fixed bad table partition
                counts for ASE 15.  Added support for "unsigned" int data
-               types in ASE 15.  Probably lots of other new ASE 15 is not
-               supported.  Ben Slade.
+               types in ASE 15.  Probably lots of other new ASE 15 features
+               are not supported.  Ben Slade.
 Release 2.4.2
   03/02/08 - David Owen (dowen@midsomer.org)  Thanks to Alexey Egorov,
              Rene van Leeuwen, Ilya Zvyagin, Dmitry Chuev, Alan Sheu and
