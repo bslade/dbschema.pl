@@ -17,7 +17,7 @@
 #
 # Last Mods:    3rd April 2009
 #
-# Release:      2.4.2
+# Release:      2.5
 #
 # Mailing List: No longer active
 #
@@ -28,6 +28,8 @@
 # Known Faults: o Still does not handle constraints *perfectly*.  Constraints
 #                 referring to foreign databases definitely need a bit of
 #                 work.  Probably best to have them extracted separately.
+#                 Lots of new ASE 15 features probably don't work properly
+#                 with this script.
 #
 # Changes:      See the CHANGES file.
 #
