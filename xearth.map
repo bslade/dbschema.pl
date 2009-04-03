@@ -1,0 +1,22 @@
+#
+# Location file for people who use dbschema.pl.
+#
+# Lat    Long
+#
+  51.00 -114.17 "David Owen"             # Calgary, Canada
+  51.50   -0.17 "Malcolm Wotton"         # London, England
+ -41.32  174.77 "Chito Domingo"          # Wellington, New Zealand
+  45.50 -122.50 "Marco C. Mason"         # Louisville, KY, USA (needs more accurate L&L)
+  37.33 -121.88 "Mohammed Shaikh"        # San Jose, CA, USA
+ -33.92  151.17 "Ranko Popovic"          # Sydney, Australia
+  38.88  -77.11 "Todd Boss"              # Arlington, VA, USA
+  40.76  -73.97 "Laksh Sridhar"          # Newy York, NY, USA
+  50.77    6.10 "Martin Spott"           # Aachen, Germany
+  40.42   -3.72 "Guillermo"              # Madrid, Spain
+  56.23  -10.23 "Erik Bertelsen"         # Aarhus, Denmark
+  45.47  -73.75 "Julio Castillo Leyton"  # Montreal, Canada
+  51.42   -0.08 "Alain Trembleau"        # London, England
+ -37.83  145.00 "Alain Tremblean"        # Melbourne, Australia
+  52.30  -13.33 "Andreas Mahling"        # Berlin, Germany
+#               "Paul Rowland"           # Atlanta, GA, USA
+
