@@ -1,0 +1,37 @@
+
+dbschema.pl is a Sybperl script that will extract a database structure from
+a Sybase ASE database.  Whilst that, in a nutshell, is all that this script
+actually does, it can do that one function in probably as flexible a manner
+as you could wish.
+
+It can extract a single database into a single file, a single file per
+object type (tables, procs, indexes etc) or a single file per actual
+object.  The number of options is getting so large that I am writing a Tk
+GUI to make it easier to manage, as well as the ability to extract single
+objects in a point and shoot fashion!
+
+Home:         
+
+Maintainer:   None (was David Owen, dowen@midsomer.org)
+
+Files:        dbschema.pl -
+                  The actual extraction perl script.  Uses Sybase::DBlib,
+                  which can be obtained from Micheal Peppler's site
+                  (http://www.mbay.net/~mpeppler).
+
+              migrate_to_sqlserver.pl -
+                  Helps migrate triggers and stored procs to a more SQL
+                  Server loadable format.  Anything that is simply not
+                  supported is commented out with a "FIXME" token added to
+                  the end of the line.
+
+              xearth.map -
+                  List of people who use the software and wish to be open
+                  about it!
+
+              CHANGES -
+                  Changes history.
+
+If you want to get your name added to the official xearth.map file, then 
+send me details of your location.  As simple as that!
+
