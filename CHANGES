@@ -1,3 +1,4 @@
+Release 2.5
   2009/04/03 - ASE 15 related fixes/upgrades.  Fixed bad table partition
                counts for ASE 15.  Added support for "unsigned" int data
                types in ASE 15.  Probably lots of other new ASE 15 features
