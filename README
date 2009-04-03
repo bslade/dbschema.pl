@@ -2,7 +2,8 @@
 dbschema.pl is a Sybperl script that will extract a database structure from
 a Sybase ASE database.  Whilst that, in a nutshell, is all that this script
 actually does, it can do that one function in probably as flexible a manner
-as you could wish.
+as you could wish.  Basically works with Sybase version 15 (ASE 15), but
+probably doesn't support lots of the new features in ASE 15.
 
 It can extract a single database into a single file, a single file per
 object type (tables, procs, indexes etc) or a single file per actual
