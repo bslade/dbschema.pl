@@ -1,4 +1,3 @@
-
 dbschema.pl is a Sybperl script that will extract a database structure from
 a Sybase ASE database.  Whilst that, in a nutshell, is all that this script
 actually does, it can do that one function in probably as flexible a manner
@@ -31,5 +30,9 @@ Files:        dbschema.pl -
                   the software and wish to be open about it!
 
               CHANGES -
-                  Changes history.
+                See the CHANGES file.
+                2009/04/03 - ASE 15 related fixes/upgrades. Fixed bad table partition
+                counts for ASE 15. Added support for "unsigned" int data
+                types in ASE 15. Probably lots of other new ASE 15 features
+                are not supported. Ben Slade.
 
